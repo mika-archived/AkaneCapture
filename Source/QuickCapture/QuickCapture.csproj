@@ -92,12 +92,10 @@
     <Compile Include="Extensions\IDisposableExtensions.cs" />
     <Compile Include="Interop\CaptureHelper.cs" />
     <Compile Include="Interop\Direct3D11Helper.cs" />
-    <Compile Include="Interop\Win32\DeviceContextValues.cs" />
     <Compile Include="Interop\Win32\POINT.cs" />
     <Compile Include="Interop\Win32\RECT.cs" />
     <Compile Include="Interop\Win32\ShowWindowCommands.cs" />
     <Compile Include="Interop\Win32\NativeMethods.cs" />
-    <Compile Include="Interop\Win32\TernaryRasterOperations.cs" />
     <Compile Include="Interop\Win32\WINDOWPLACEMENT.cs" />
     <Compile Include="Interop\WinRT\IDirect3DDxgiInterfaceAccess.cs" />
     <Compile Include="Interop\WinRT\IGraphicsCaptureItemInterop.cs" />
@@ -210,6 +208,9 @@
     </PackageReference>
     <PackageReference Include="System.Runtime.WindowsRuntime.UI.Xaml">
       <Version>4.6.0-preview4.19212.13</Version>
+    </PackageReference>
+    <PackageReference Include="ZXing.Net">
+      <Version>0.16.4</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />
