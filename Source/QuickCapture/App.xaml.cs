@@ -21,11 +21,30 @@ namespace QuickCapture
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            // こんな面倒なことしないとダメだったっけ...？
+            var configuration = new ConfigurationService();
+            containerRegistry.RegisterInstance<IConfigurationService>(configuration);
         }
 
         protected override Window CreateShell()
         {
             return Container.Resolve<MainWindow>();
+        }
+
+        protected override void InitializeShell(Window shell)
+        {
+            var configuration = Container.Resolve<IConfigurationService>();
+            configuration.Load();
+
+            base.InitializeShell(shell);
+        }
+        protected override void OnExit(ExitEventArgs e)
+        {
+            var configuration = Container.Resolve<IConfigurationService>();
+            configuration.Save();
+
+
+            base.OnExit(e);
         }
     }
 }
