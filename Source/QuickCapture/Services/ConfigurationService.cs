@@ -21,6 +21,28 @@ namespace QuickCapture.Services
 
         public ObservableCollection<string> TargetProcesses { get; }
 
+        public long CaptureFrames
+        {
+            get => _settings.CaptureFrames;
+            set
+            {
+                if (_settings.CaptureFrames == value)
+                    return;
+                _settings.CaptureFrames = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CaptureFrames)));
+            }
+        }
+
+        public long CaptureRate
+        {
+            get => _settings.CaptureRate;
+            set
+            {
+                if (_settings.CaptureRate == value)
+                    return;
+                _settings.CaptureRate = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CaptureRate)));
+            }
         }
 
         public void Save()

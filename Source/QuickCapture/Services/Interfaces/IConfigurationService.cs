@@ -7,6 +7,10 @@ namespace QuickCapture.Services.Interfaces
     {
         ObservableCollection<string> TargetProcesses { get; }
 
+        long CaptureFrames { get; set; }
+
+        long CaptureRate { get; set; }
+
         void Save();
 
         void Load();
