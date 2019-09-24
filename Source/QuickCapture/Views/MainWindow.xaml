@@ -4,6 +4,7 @@
         xmlns:actions="clr-namespace:QuickCapture.Actions"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:items="clr-namespace:QuickCapture.Views.Items"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:partials="clr-namespace:QuickCapture.Views.Partials"
         xmlns:prism="http://prismlibrary.com/"
@@ -25,6 +26,27 @@
             <ColumnDefinition Width="200" />
         </Grid.ColumnDefinitions>
 
+
+        <Grid Grid.Column="0" Margin="0,0,5,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Margin="0,0,0,5"
+                       FontSize="24"
+                       Text="Capture History" />
+            <ListBox Grid.Row="1"
+                     VerticalAlignment="Stretch"
+                     ItemsSource="{Binding History}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <items:CaptureHistory DataContext="{Binding}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
