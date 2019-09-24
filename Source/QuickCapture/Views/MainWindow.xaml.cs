@@ -1,5 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Interop;
+
+using QuickCapture.Interop.Win32;
+using QuickCapture.Models;
 
 namespace QuickCapture.Views
 {
@@ -8,9 +14,43 @@ namespace QuickCapture.Views
     /// </summary>
     public partial class MainWindow : Window
     {
+        private WindowSettings _settings;
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            _settings = new WindowSettings(this);
+            _settings.Upgrade();
+            _settings.Reload();
+
+            if (!_settings.WindowPlacement.HasValue)
+                return;
+
+            var hWnd = new WindowInteropHelper(this).Handle;
+            var placement = _settings.WindowPlacement.Value;
+            placement.Length = Marshal.SizeOf<WINDOWPLACEMENT>();
+            placement.Flags = 0;
+            placement.ShowCmd = ShowWindowCommands.Normal;
+
+            NativeMethods.SetWindowPlacement(hWnd, ref placement);
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+
+            if (e.Cancel)
+                return;
+
+            var hWnd = new WindowInteropHelper(this).Handle;
+            NativeMethods.GetWindowPlacement(hWnd, out var placement);
+
+            _settings.WindowPlacement = placement;
+            _settings.Save();
         }
     }
 }
