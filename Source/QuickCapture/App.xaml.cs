@@ -3,6 +3,7 @@
 using Prism.Ioc;
 using Prism.Unity;
 
+using QuickCapture.Views;
 
 namespace QuickCapture
 {
