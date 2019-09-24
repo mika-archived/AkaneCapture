@@ -25,3 +25,20 @@ Basically, it assumes QR code recognition in VR spaces/worlds like VRChat.
 	* QuickCapture uses UWP Interop API
 
 
+## How to use
+
+In this example, VRChat is configured for the target application.
+
+
+### Process Detection
+
+1. Launch QuickCapture.
+2. Launch VRChat.
+3. Enjoy!
+
+
+### Capture
+
+1. Stare at the QR code that you want to capture for 3 seconds.
+   1. You can change the gaze time from the settings. 
+2. QuickCapture try to read QR code and store it.
