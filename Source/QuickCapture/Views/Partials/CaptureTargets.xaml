@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="QuickCapture.Views.Partials.CaptureTargets"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:QuickCapture.Views.Partials"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:viewModel="clr-namespace:QuickCapture.ViewModels.Partials"
+             d:DataContext="{d:DesignInstance viewModel:CaptureTargetsViewModel}"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="Button">
+                <Setter Property="Height" Value="24" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Margin="0,0,0,5"
+                   FontSize="24"
+                   Text="Capture Targets" />
+        <ListBox Grid.Row="1"
+                 ItemsSource="{Binding CaptureTargets}"
+                 SelectedValue="{Binding SelectedItem.Value, Mode=TwoWay}" />
+        <TextBox Grid.Row="2"
+                 Height="24"
+                 VerticalContentAlignment="Center"
+                 Text="{Binding CaptureTarget.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Command="{Binding AddCaptureTargetCommand}"
+                    Content="Add target" />
+            <Button Grid.Column="1"
+                    Command="{Binding RemoveCaptureTargetCommand}"
+                    Content="Remove target" />
+        </Grid>
+        <Button Grid.Row="4"
+                Height="24"
+                Content="Select from current processes"
+                FontSize="14" />
+
+    </Grid>
+</UserControl>
