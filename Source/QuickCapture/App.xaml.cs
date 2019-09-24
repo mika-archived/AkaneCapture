@@ -23,7 +23,12 @@ namespace QuickCapture
         {
             // こんな面倒なことしないとダメだったっけ...？
             var configuration = new ConfigurationService();
+            var directX = new DirectXService();
+            var reader = new QrCodeReaderService();
             containerRegistry.RegisterInstance<IConfigurationService>(configuration);
+            containerRegistry.RegisterInstance<IDirectXService>(directX);
+            containerRegistry.RegisterInstance<IExternalUrlService>(new ExternalUrlService());
+            containerRegistry.RegisterInstance<IQrCodeReaderService>(reader);
         }
 
         protected override Window CreateShell()
