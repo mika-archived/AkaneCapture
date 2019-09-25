@@ -36,7 +36,7 @@ namespace QuickCapture.Services
 
         public void Append(ReadingResult result)
         {
-            _history.Add(result);
+            _history.Insert(0, result);
         }
 
         public void Clear()
