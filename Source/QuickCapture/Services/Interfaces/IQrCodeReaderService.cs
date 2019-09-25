@@ -1,9 +1,10 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 
 namespace QuickCapture.Services.Interfaces
 {
     internal interface IQrCodeReaderService
     {
-        string Read(Bitmap bitmap);
+        List<string> Read(Bitmap bitmap);
     }
 }

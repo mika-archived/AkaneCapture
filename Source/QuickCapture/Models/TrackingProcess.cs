@@ -68,9 +68,10 @@ namespace QuickCapture.Models
 
             _configuration.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == nameof(_configuration.CaptureFrames) || e.PropertyName == nameof(_configuration.CaptureRate))
-                    if (_configuration.CaptureFrames > 0 && _configuration.CaptureRate >= 250)
-                        SubscribeChanges();
+                if (e.PropertyName != nameof(_configuration.CaptureFrames) && e.PropertyName != nameof(_configuration.CaptureRate))
+                    return;
+                if (_configuration.CaptureFrames > 0 && _configuration.CaptureRate >= 250)
+                    SubscribeChanges();
             };
             SubscribeChanges();
         }
@@ -91,27 +92,26 @@ namespace QuickCapture.Models
                 encoder.SetSoftwareBitmap(softwareBitmap);
                 await encoder.FlushAsync();
 
-                var bitmap = new Bitmap(stream.AsStream());
+                using var bitmap = new Bitmap(stream.AsStream());
 
-                var r = _reader.Read(bitmap);
-                if (string.IsNullOrWhiteSpace(r))
-                    _frames = 0;
-                else
+                var texts = _reader.Read(bitmap);
+                if (texts.Count > 0)
                     _frames++;
-
-                if (_frames >= _configuration.CaptureFrames && _history.History.SingleOrDefault(w => w.Text == r) == null)
-                {
-                    if (!Directory.Exists(Constants.SituationsDirPath))
-                        Directory.CreateDirectory(Constants.SituationsDirPath);
-
-                    var path = Path.Combine(Constants.SituationsDirPath, $"{Path.GetFileName(_process.MainModule?.FileName) ?? "Unknown"}_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.png");
-                    bitmap.Save(path, ImageFormat.Png);
-                    _history.Append(new ReadingResult { RecordAt = DateTime.Now, Situation = path.Replace($@"{Constants.SituationsDirPath}\\", "~/"), Text = r });
-                }
                 else
-                {
+                    _frames = 0;
+
+                if (_frames >= _configuration.CaptureFrames)
+                    foreach (var text in texts.Where(text => _history.History.SingleOrDefault(w => w.Text == text) == null))
+                    {
+                        if (!Directory.Exists(Constants.SituationsDirPath))
+                            Directory.CreateDirectory(Constants.SituationsDirPath);
+
+                        var path = Path.Combine(Constants.SituationsDirPath, $"{Path.GetFileName(_process.MainModule?.FileName) ?? "Unknown"}_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.png");
+                        bitmap.Save(path, ImageFormat.Png);
+                        _history.Append(new ReadingResult { RecordAt = DateTime.Now, Situation = path.Replace($@"{Constants.SituationsDirPath}\\", "~/"), Text = text });
+                    }
+                else
                     Debug.WriteLine("not detected QR in screen");
-                }
             });
         }
     }

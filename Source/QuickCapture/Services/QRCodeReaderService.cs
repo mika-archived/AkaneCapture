@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 
 using QuickCapture.Services.Interfaces;
 
@@ -15,10 +17,10 @@ namespace QuickCapture.Services
             _reader = new BarcodeReader { AutoRotate = true, TryInverted = true };
         }
 
-        public string Read(Bitmap bitmap)
+        public List<string> Read(Bitmap bitmap)
         {
-            var decoded = _reader.Decode(bitmap);
-            return decoded?.Text;
+            var decoded = _reader.DecodeMultiple(bitmap);
+            return decoded?.Select(w => w.Text).ToList() ?? new List<string>();
         }
     }
 }

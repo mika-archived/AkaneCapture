@@ -13,6 +13,7 @@ QuickCapture has the following features:
   - Background is a state that is hidden from other applications.
 - Support multiple displays.
   - QuickCapture captures single process, not monitors/displays.
+- Support multiple bar-codes in same frame.
 
 Basically, it assumes QR code recognition in VR spaces/worlds like VRChat.
 
