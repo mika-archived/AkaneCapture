@@ -12,7 +12,8 @@ namespace QuickCapture.Interop
     {
         public static IDirect3DDevice CreateDeviceFromSharpDXDevice(Device device)
         {
-            var hr = NativeMethods.CreateDirect3D11DeviceFromDXGIDevice(device.NativePointer, out var pUnknown);
+            using var dxgi = device.QueryInterface<SharpDX.DXGI.Device>();
+            var hr = NativeMethods.CreateDirect3D11DeviceFromDXGIDevice(dxgi.NativePointer, out var pUnknown);
             if (hr != 0)
                 return null;
 
