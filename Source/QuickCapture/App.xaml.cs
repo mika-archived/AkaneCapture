@@ -26,7 +26,7 @@ namespace QuickCapture
             // こんな面倒なことしないとダメだったっけ...？
             var configuration = new ConfigurationService();
             var directX = new DirectXService();
-            var reader = new QrCodeReaderService();
+            var reader = new BarcodeReaderService();
             var history = new ReadingHistoryService();
             var processTracker = new ProcessTrackerService(configuration, directX, reader, history);
 
@@ -34,7 +34,7 @@ namespace QuickCapture
             containerRegistry.RegisterInstance<IDirectXService>(directX);
             containerRegistry.RegisterInstance<IExternalUrlService>(new ExternalUrlService());
             containerRegistry.RegisterInstance<IProcessTrackerService>(processTracker);
-            containerRegistry.RegisterInstance<IQrCodeReaderService>(reader);
+            containerRegistry.RegisterInstance<IBarcodeReaderService>(reader);
             containerRegistry.RegisterInstance<IReadingHistoryService>(history);
         }
 

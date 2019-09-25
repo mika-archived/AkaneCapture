@@ -24,7 +24,7 @@ namespace QuickCapture.Models
         private readonly IReadingHistoryService _history;
         private readonly IntPtr _hWnd;
         private readonly Process _process;
-        private readonly IQrCodeReaderService _reader;
+        private readonly IBarcodeReaderService _reader;
         private Direct3D11CaptureFramePool _captureFramePool;
         private GraphicsCaptureItem _captureItem;
         private GraphicsCaptureSession _captureSession;
@@ -33,7 +33,7 @@ namespace QuickCapture.Models
 
         public IntPtr WindowHandle => _process.MainWindowHandle;
 
-        public TrackingProcess(Process process, IConfigurationService configuration, IDirectXService directX, IQrCodeReaderService reader, IReadingHistoryService history)
+        public TrackingProcess(Process process, IConfigurationService configuration, IDirectXService directX, IBarcodeReaderService reader, IReadingHistoryService history)
         {
             _process = process;
             _hWnd = process.MainWindowHandle;
@@ -81,7 +81,7 @@ namespace QuickCapture.Models
             _disposable?.Dispose();
             _disposable = Observable.Timer(DateTimeOffset.Now, TimeSpan.FromMilliseconds(_configuration.CaptureRate)).Subscribe(async _ =>
             {
-                // try to detect QR (or Barcode)
+                // try to detect 2D barcode
                 using var frame = _captureFramePool.TryGetNextFrame();
                 if (frame == null)
                     return;
@@ -111,7 +111,7 @@ namespace QuickCapture.Models
                         _history.Append(new ReadingResult { RecordAt = DateTime.Now, Situation = path.Replace($@"{Constants.SituationsDirPath}\\", "~/"), Text = text });
                     }
                 else
-                    Debug.WriteLine("not detected QR in screen");
+                    Debug.WriteLine("not detected 2D barcode in screen");
             });
         }
     }

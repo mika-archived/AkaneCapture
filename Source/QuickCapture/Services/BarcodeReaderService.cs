@@ -8,13 +8,13 @@ using ZXing;
 
 namespace QuickCapture.Services
 {
-    internal class QrCodeReaderService : IQrCodeReaderService
+    internal class BarcodeReaderService : IBarcodeReaderService
     {
         private readonly BarcodeReader _reader;
 
-        public QrCodeReaderService()
+        public BarcodeReaderService()
         {
-            _reader = new BarcodeReader { AutoRotate = true, TryInverted = true };
+            _reader = new BarcodeReader { AutoRotate = true, TryInverted = true, Options = { PossibleFormats = new List<BarcodeFormat> { BarcodeFormat.QR_CODE } } };
         }
 
         public List<string> Read(Bitmap bitmap)

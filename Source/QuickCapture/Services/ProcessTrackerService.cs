@@ -14,10 +14,10 @@ namespace QuickCapture.Services
         private readonly IConfigurationService _configuration;
         private readonly IDirectXService _directX;
         private readonly IReadingHistoryService _history;
-        private readonly IQrCodeReaderService _reader;
+        private readonly IBarcodeReaderService _reader;
         private IDisposable _disposable;
 
-        public ProcessTrackerService(IConfigurationService configuration, IDirectXService directX, IQrCodeReaderService reader, IReadingHistoryService history)
+        public ProcessTrackerService(IConfigurationService configuration, IDirectXService directX, IBarcodeReaderService reader, IReadingHistoryService history)
         {
             _configuration = configuration;
             _directX = directX;
