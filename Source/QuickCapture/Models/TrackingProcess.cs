@@ -5,6 +5,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 
 using Windows.Graphics.Capture;
 using Windows.Graphics.DirectX;
@@ -52,7 +53,12 @@ namespace QuickCapture.Models
 
         public void Start()
         {
-            _captureItem = CaptureHelper.CreateItemForWindow(_hWnd);
+            do
+            {
+                _captureItem = CaptureHelper.CreateItemForWindow(_hWnd);
+                if (_captureItem == null)
+                    Task.Delay(1000).Wait();
+            } while (_captureItem == null);
             _captureItem.Closed += (_, __) => Dispose();
 
             var device = Direct3D11Helper.CreateDeviceFromSharpDXDevice(_directX.Device);
