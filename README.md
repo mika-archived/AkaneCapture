@@ -21,7 +21,7 @@ Basically, it assumes 2D bar-code recognition in VR spaces/worlds like VRChat.
 
 - .NET Framework 4.7
 - Windows 10 1903 or greater
-  - \* QuickCapture uses UWP Interop API
+  - \* QuickCapture uses UWP Interop API that added in Windows 10 May 2019 Update.
 
 ## How to use
 
@@ -33,13 +33,15 @@ In this example, VRChat is configured for the target application.
 2. Launch VRChat.
 3. Enjoy!
 
+QuickCapture can initiate capture in any order of startup as long as the process is running.
+
 ### Capture
 
 1. Stare at the 2D bar-code that you want to capture for 5 seconds.
    1. You can change the gaze time from the settings.
 2. QuickCapture try to read 2D bar-code and store it.
 
-### Test
+## Test
 
 This application has been tested in the following environments:
 
