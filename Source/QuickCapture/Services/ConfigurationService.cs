@@ -55,7 +55,7 @@ namespace QuickCapture.Services
             _settings.Reload();
 
             if (_settings.TargetProcesses == null)
-                _settings.TargetProcesses = new List<string> { "VRChat.exe" };
+                _settings.TargetProcesses = new List<string> { "VRChat" };
 
             // initialize
             foreach (var process in _settings.TargetProcesses)
