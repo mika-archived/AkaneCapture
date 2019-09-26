@@ -38,3 +38,12 @@ In this example, VRChat is configured for the target application.
 1. Stare at the 2D bar-code that you want to capture for 5 seconds.
    1. You can change the gaze time from the settings.
 2. QuickCapture try to read 2D bar-code and store it.
+
+### Test
+
+This application has been tested in the following environments:
+
+* VRChat (Steam) + Desktop PC (Desktop Mode)
+* VRChat (Steam) + Oculus Rift S (SteamVR Mode)
+* VRChat (Oculus) + Desktop PC (Desktop Mode)
+* VRChat (Oculus) + Oculus Rift S (VR Mode)
