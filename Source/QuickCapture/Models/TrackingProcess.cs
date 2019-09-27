@@ -109,7 +109,10 @@ namespace QuickCapture.Models
                             Directory.CreateDirectory(Constants.SituationsDirPath);
 
                         var path = Path.Combine(Constants.SituationsDirPath, $"{Path.GetFileName(_process.MainModule?.FileName) ?? "Unknown"}_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.png");
-                        bitmap.Save(path, ImageFormat.Png);
+
+                        // if thumbnail is already saved, use it as thumbnail path
+                        if (!File.Exists(path))
+                            bitmap.Save(path, ImageFormat.Png);
                         _history.Append(new ReadingResult { RecordAt = DateTime.Now, Situation = path.Replace($@"{Constants.SituationsDirPath}\\", "~/"), Text = text });
 
                         _notificator.Show(@"
