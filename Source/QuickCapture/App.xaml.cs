@@ -28,14 +28,16 @@ namespace QuickCapture
             var directX = new DirectXService();
             var reader = new BarcodeReaderService();
             var history = new ReadingHistoryService();
-            var processTracker = new ProcessTrackerService(configuration, directX, reader, history);
+            var notificator = new ToastNotificationService();
+            var processTracker = new ProcessTrackerService(configuration, directX, reader, history, notificator);
 
+            containerRegistry.RegisterInstance<IBarcodeReaderService>(reader);
             containerRegistry.RegisterInstance<IConfigurationService>(configuration);
             containerRegistry.RegisterInstance<IDirectXService>(directX);
             containerRegistry.RegisterInstance<IExternalUrlService>(new ExternalUrlService());
             containerRegistry.RegisterInstance<IProcessTrackerService>(processTracker);
-            containerRegistry.RegisterInstance<IBarcodeReaderService>(reader);
             containerRegistry.RegisterInstance<IReadingHistoryService>(history);
+            containerRegistry.RegisterInstance<IToastNotificationService>(notificator);
         }
 
         protected override Window CreateShell()

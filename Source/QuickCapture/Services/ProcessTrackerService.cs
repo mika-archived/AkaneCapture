@@ -14,15 +14,18 @@ namespace QuickCapture.Services
         private readonly IConfigurationService _configuration;
         private readonly IDirectXService _directX;
         private readonly IReadingHistoryService _history;
+        private readonly IToastNotificationService _notificator;
         private readonly IBarcodeReaderService _reader;
         private IDisposable _disposable;
 
-        public ProcessTrackerService(IConfigurationService configuration, IDirectXService directX, IBarcodeReaderService reader, IReadingHistoryService history)
+        // oh...
+        public ProcessTrackerService(IConfigurationService configuration, IDirectXService directX, IBarcodeReaderService reader, IReadingHistoryService history, IToastNotificationService notificator)
         {
             _configuration = configuration;
             _directX = directX;
             _reader = reader;
             _history = history;
+            _notificator = notificator;
             Tracks = new ObservableCollection<TrackingProcess>();
         }
 
@@ -54,7 +57,7 @@ namespace QuickCapture.Services
                     continue;
                 }
 
-                var tracker = new TrackingProcess(process, _configuration, _directX, _reader, _history);
+                var tracker = new TrackingProcess(process, _configuration, _directX, _reader, _history, _notificator);
                 tracker.Start();
 
                 Tracks.Add(tracker);

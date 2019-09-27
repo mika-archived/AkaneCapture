@@ -116,9 +116,11 @@
     <Compile Include="Services\Interfaces\IProcessTrackerService.cs" />
     <Compile Include="Services\Interfaces\IBarcodeReaderService.cs" />
     <Compile Include="Services\Interfaces\IReadingHistoryService.cs" />
+    <Compile Include="Services\Interfaces\IToastNotificationService.cs" />
     <Compile Include="Services\ProcessTrackerService.cs" />
     <Compile Include="Services\BarcodeReaderService.cs" />
     <Compile Include="Services\ReadingHistoryService.cs" />
+    <Compile Include="Services\ToastNotificationService.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Partials\CaptureTargetsViewModel.cs" />
     <Compile Include="ViewModels\Partials\ConfigurationsViewModel.cs" />

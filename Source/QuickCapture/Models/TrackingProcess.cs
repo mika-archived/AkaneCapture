@@ -23,6 +23,7 @@ namespace QuickCapture.Models
         private readonly IDirectXService _directX;
         private readonly IReadingHistoryService _history;
         private readonly IntPtr _hWnd;
+        private readonly IToastNotificationService _notificator;
         private readonly Process _process;
         private readonly IBarcodeReaderService _reader;
         private Direct3D11CaptureFramePool _captureFramePool;
@@ -33,7 +34,7 @@ namespace QuickCapture.Models
 
         public IntPtr WindowHandle => _process.MainWindowHandle;
 
-        public TrackingProcess(Process process, IConfigurationService configuration, IDirectXService directX, IBarcodeReaderService reader, IReadingHistoryService history)
+        public TrackingProcess(Process process, IConfigurationService configuration, IDirectXService directX, IBarcodeReaderService reader, IReadingHistoryService history, IToastNotificationService notificator)
         {
             _process = process;
             _hWnd = process.MainWindowHandle;
@@ -41,6 +42,7 @@ namespace QuickCapture.Models
             _directX = directX;
             _reader = reader;
             _history = history;
+            _notificator = notificator;
         }
 
         public void Dispose()
@@ -109,6 +111,17 @@ namespace QuickCapture.Models
                         var path = Path.Combine(Constants.SituationsDirPath, $"{Path.GetFileName(_process.MainModule?.FileName) ?? "Unknown"}_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.png");
                         bitmap.Save(path, ImageFormat.Png);
                         _history.Append(new ReadingResult { RecordAt = DateTime.Now, Situation = path.Replace($@"{Constants.SituationsDirPath}\\", "~/"), Text = text });
+
+                        _notificator.Show(@"
+<toast>
+    <visual>
+        <binding template=""ToastText02"">
+            <text id=""1"">QuickCapture</text>
+            <text id=""2"">2D bar-codes read successful.</text>
+        </binding>
+    </visual>
+</toast>
+");
                     }
                 else
                     Debug.WriteLine("not detected 2D barcode in screen");
