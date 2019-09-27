@@ -26,27 +26,9 @@
             <ColumnDefinition Width="200" />
         </Grid.ColumnDefinitions>
 
-
-        <Grid Grid.Column="0" Margin="0,0,5,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
-            <TextBlock Grid.Row="0"
-                       Margin="0,0,0,5"
-                       FontSize="24"
-                       Text="Capture History" />
-            <ListBox Grid.Row="1"
-                     VerticalAlignment="Stretch"
-                     ItemsSource="{Binding History}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <items:CaptureHistory DataContext="{Binding}" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </Grid>
+        <partials:CaptureHistories Grid.Column="0"
+                                   Margin="0,0,5,0"
+                                   DataContext="{Binding CaptureHistoriesViewModel}" />
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
@@ -54,8 +36,12 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <partials:CaptureTargets Grid.Row="0" Margin="0,0,0,5" />
-            <partials:Configurations Grid.Row="1" Margin="0,5,0,0" />
+            <partials:CaptureTargets Grid.Row="0"
+                                     Margin="0,0,0,5"
+                                     DataContext="{Binding CaptureTargetsViewModel}" />
+            <partials:Configurations Grid.Row="1"
+                                     Margin="0,5,0,0"
+                                     DataContext="{Binding ConfigurationsViewModel}" />
         </Grid>
     </Grid>
 </Window>

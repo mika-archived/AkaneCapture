@@ -1,8 +1,7 @@
-﻿using QuickCapture.Mvvm;
+﻿using QuickCapture.Extensions;
+using QuickCapture.Mvvm;
 using QuickCapture.Services.Interfaces;
-using QuickCapture.ViewModels.Items;
-
-using Reactive.Bindings;
+using QuickCapture.ViewModels.Partials;
 
 namespace QuickCapture.ViewModels
 {
@@ -10,11 +9,15 @@ namespace QuickCapture.ViewModels
     {
         public string Title => "QuickCapture";
 
-        public ReadOnlyReactiveCollection<CaptureHistoryViewModel> History { get; }
+        public CaptureHistoriesViewModel CaptureHistoriesViewModel { get; }
+        public CaptureTargetsViewModel CaptureTargetsViewModel { get; }
+        public ConfigurationsViewModel ConfigurationsViewModel { get; set; }
 
-        public MainWindowViewModel(IReadingHistoryService history)
+        public MainWindowViewModel(IConfigurationService configuration, IExternalUrlService urlService, IReadingHistoryService histories)
         {
-            History = history.History.ToReadOnlyReactiveCollection(w => new CaptureHistoryViewModel(w));
+            CaptureHistoriesViewModel = new CaptureHistoriesViewModel(urlService, histories).AddTo(this);
+            CaptureTargetsViewModel = new CaptureTargetsViewModel(configuration).AddTo(this);
+            ConfigurationsViewModel = new ConfigurationsViewModel(configuration).AddTo(this);
         }
     }
 }

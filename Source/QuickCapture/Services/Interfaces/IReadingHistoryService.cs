@@ -1,16 +1,16 @@
 ﻿using System.Collections.ObjectModel;
 
-using QuickCapture.Models;
+using QuickCapture.Models.ReadingResults;
 
 namespace QuickCapture.Services.Interfaces
 {
     internal interface IReadingHistoryService
     {
-        ReadOnlyObservableCollection<ReadingResult> History { get; }
+        ReadOnlyObservableCollection<ResultBase> History { get; }
 
         void Load();
 
-        void Append(ReadingResult result);
+        void Append(ResultBase result);
 
         void Clear();
 

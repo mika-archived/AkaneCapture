@@ -13,6 +13,7 @@ using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
 
 using QuickCapture.Interop;
+using QuickCapture.Models.ReadingResults;
 using QuickCapture.Services.Interfaces;
 
 namespace QuickCapture.Models
@@ -113,7 +114,7 @@ namespace QuickCapture.Models
                         // if thumbnail is already saved, use it as thumbnail path
                         if (!File.Exists(path))
                             bitmap.Save(path, ImageFormat.Png);
-                        _history.Append(new ReadingResult { RecordAt = DateTime.Now, Situation = path.Replace($@"{Constants.SituationsDirPath}\\", "~/"), Text = text });
+                        _history.Append(ResultBase.CreateFromText(text, DateTime.Now, path));
 
                         _notificator.Show(@"
 <toast>

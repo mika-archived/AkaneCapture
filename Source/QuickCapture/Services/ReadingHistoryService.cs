@@ -6,6 +6,7 @@ using System.Linq;
 using Newtonsoft.Json;
 
 using QuickCapture.Models;
+using QuickCapture.Models.ReadingResults;
 using QuickCapture.Services.Interfaces;
 
 using Reactive.Bindings;
@@ -14,14 +15,16 @@ namespace QuickCapture.Services
 {
     internal class ReadingHistoryService : IReadingHistoryService
     {
-        private readonly ObservableCollection<ReadingResult> _history;
+        private readonly ObservableCollection<ResultBase> _history;
+        private readonly JsonSerializerSettings _settings;
 
         public ReadingHistoryService()
         {
-            _history = new ObservableCollection<ReadingResult>();
+            _history = new ObservableCollection<ResultBase>();
+            _settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Objects };
         }
 
-        public ReadOnlyObservableCollection<ReadingResult> History => _history.ToReadOnlyReactiveCollection();
+        public ReadOnlyObservableCollection<ResultBase> History => _history.ToReadOnlyReactiveCollection();
 
         public void Load()
         {
@@ -30,13 +33,8 @@ namespace QuickCapture.Services
 
             using var stream = new FileStream(Constants.HistoryFilePath, FileMode.Open);
             using var reader = new StreamReader(stream);
-            var history = JsonConvert.DeserializeObject<IEnumerable<ReadingResult>>(reader.ReadToEnd());
+            var history = JsonConvert.DeserializeObject<IEnumerable<ResultBase>>(reader.ReadToEnd(), _settings);
             _history.AddRange(history);
-        }
-
-        public void Append(ReadingResult result)
-        {
-            _history.Insert(0, result);
         }
 
         public void Clear()
@@ -51,8 +49,13 @@ namespace QuickCapture.Services
 
             using var stream = new FileStream(Constants.HistoryFilePath, File.Exists(Constants.HistoryFilePath) ? FileMode.Truncate : FileMode.Create);
             using var writer = new StreamWriter(stream);
-            var json = JsonConvert.SerializeObject(_history.ToList());
+            var json = JsonConvert.SerializeObject(_history.ToList(), _settings);
             writer.Write(json);
+        }
+
+        public void Append(ResultBase result)
+        {
+            _history.Insert(0, result);
         }
     }
 }
