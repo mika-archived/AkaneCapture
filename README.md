@@ -14,7 +14,7 @@ QuickCapture has the following features:
 - Support multiple displays.
   - QuickCapture captures a single process, not monitors/displays.
 - Support multiple bar-codes in the same frame.
-- Send notification when QuickCapture successfully reads a 2D bar-codes.
+- Send notification when QuickCapture successfully reads 2D bar-codes.
 
 It assumes 2D bar-code recognition in VR spaces/worlds like VRChat.
 
@@ -46,7 +46,7 @@ QuickCapture can initiate capture in any order of startup as long as the process
 
 This application has been tested in the following environments:
 
-* VRChat (Steam) + Desktop PC (Desktop Mode)
-* VRChat (Steam) + Oculus Rift S (SteamVR Mode)
-* VRChat (Oculus) + Desktop PC (Desktop Mode)
-* VRChat (Oculus) + Oculus Rift S (VR Mode)
+- VRChat (Steam) + Desktop PC (Desktop Mode)
+- VRChat (Steam) + Oculus Rift S (SteamVR Mode)
+- VRChat (Oculus) + Desktop PC (Desktop Mode)
+- VRChat (Oculus) + Oculus Rift S (VR Mode)
