@@ -7,15 +7,16 @@ Fast, Lightweight and Easy 2D bar-code reader for Windows.
 QuickCapture has the following features:
 
 - Free to use.
-  - If you like this software, please send the movie tweet of kawaii move to [@MikazukiFuyuno](https://twitter.com/MikazukiFuyuno).
+  - If you like this software, please send the movie tweet of the kawaii move to [@MikazukiFuyuno](https://twitter.com/MikazukiFuyuno).
 - Reading results of 2D bar-codes are saved permanently.
 - QuickCapture can also recognize 2D bar-code displayed in the background.
-  - Background is a state that is hidden from other applications.
+  - The background is a state that is hidden from other applications.
 - Support multiple displays.
-  - QuickCapture captures single process, not monitors/displays.
-- Support multiple bar-codes in same frame.
+  - QuickCapture captures a single process, not monitors/displays.
+- Support multiple bar-codes in the same frame.
+- Send notification when QuickCapture successfully reads a 2D bar-codes.
 
-Basically, it assumes 2D bar-code recognition in VR spaces/worlds like VRChat.
+It assumes 2D bar-code recognition in VR spaces/worlds like VRChat.
 
 ## Requirements
 
