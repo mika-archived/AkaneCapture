@@ -12,10 +12,18 @@
              mc:Ignorable="d">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type ivm:WebsiteCaptureHistoryViewModel}">
-            <items:WebsiteCaptureHistory DataContext="{Binding}" />
+            <Border Padding="0,2.5"
+                    BorderBrush="Silver"
+                    BorderThickness="0,0,0,1">
+                <items:WebsiteCaptureHistory DataContext="{Binding}" />
+            </Border>
         </DataTemplate>
         <DataTemplate DataType="{x:Type ivm:OtherCaptureHistoryViewModel}">
-            <items:OtherCaptureHistory DataContext="{Binding}" />
+            <Border Padding="0,2.5"
+                    BorderBrush="Silver"
+                    BorderThickness="0,0,0,1">
+                <items:OtherCaptureHistory DataContext="{Binding}" />
+            </Border>
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
@@ -28,10 +36,25 @@
                    Margin="0,0,0,5"
                    FontSize="24"
                    Text="Capture History" />
-        <ListBox Grid.Row="1"
-                 VerticalAlignment="Stretch"
-                 HorizontalContentAlignment="Stretch"
-                 ItemsSource="{Binding Histories}"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
+        <ItemsControl Grid.Row="1"
+                      VerticalAlignment="Stretch"
+                      HorizontalContentAlignment="Stretch"
+                      ItemsSource="{Binding Histories}"
+                      ScrollViewer.CanContentScroll="True"
+                      VirtualizingPanel.VirtualizationMode="Recycling"
+                      VirtualizingStackPanel.IsVirtualizing="True">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.Template>
+                <ControlTemplate>
+                    <ScrollViewer>
+                        <ItemsPresenter />
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ItemsControl.Template>
+        </ItemsControl>
     </Grid>
 </UserControl>
