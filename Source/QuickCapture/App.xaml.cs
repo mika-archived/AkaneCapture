@@ -67,6 +67,9 @@ namespace QuickCapture
             var configuration = Container.Resolve<IConfigurationService>();
             configuration.Save();
 
+            var directX = Container.Resolve<IDirectXService>();
+            directX.Dispose();
+
             var tracker = Container.Resolve<IProcessTrackerService>();
             tracker.StopTrack();
 

@@ -13,5 +13,10 @@ namespace QuickCapture.Services
         {
             Device = new Device(DriverType.Hardware, DeviceCreationFlags.BgraSupport);
         }
+
+        public void Dispose()
+        {
+            Device?.Dispose();
+        }
     }
 }
