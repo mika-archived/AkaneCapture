@@ -17,11 +17,11 @@ jobs:
       - name: Build with dotnet
         run: dotnet publish ./Source/QuickCapture/QuickCapture.csproj --configuration Release
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: QuickCapture-x64-default
-          path: ./Source/QuickCapture/bin/x64/Release/netcoreapp3.0/win10-x64/publish
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: QuickCapture-x64-default
+      #     path: ./Source/QuickCapture/bin/x64/Release/netcoreapp3.0/win10-x64/publish
 
   build-single-executable:
     runs-on: windows-latest
@@ -35,7 +35,7 @@ jobs:
           dotnet-version: 3.0.100
 
       - name: Patch [Single Executable]
-        run: patch -p1 < patches/SingleExe.patch
+        run: Get-Content ./patches/SingleExe.patch | patch -p1
 
       - name: Build with dotnet
         run: dotnet publish ./Source/QuickCapture/QuickCapture-Single.csproj --configuration Release
@@ -58,7 +58,7 @@ jobs:
           dotnet-version: 3.0.100
 
       - name: Patch [Single Executable (Ready To Run)]
-        run: patch -p1 < patches/SingleExeReadyToRun.patch
+        run: Get-Content patches/SingleExeReadyToRun.patch | patch -p1
 
       - name: Build with dotnet
         run: dotnet publish ./Source/QuickCapture/QuickCapture-Single.csproj --configuration Release
