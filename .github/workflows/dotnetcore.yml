@@ -34,9 +34,6 @@ jobs:
         with:
           dotnet-version: 3.0.100
 
-      - name: Patch [Single Executable]
-        run:
-
       - name: Build with dotnet
         run: dotnet publish ./Source/QuickCapture/QuickCapture-Single.csproj --configuration Release
 
