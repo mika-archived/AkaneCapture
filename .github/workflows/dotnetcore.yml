@@ -1,6 +1,6 @@
-name: .NET Core
+name: QuickCapture Release
 
-on: [push]
+on: [create]
 
 jobs:
   build-default:
@@ -40,11 +40,11 @@ jobs:
       - name: Build with dotnet
         run: dotnet publish ./Source/QuickCapture/QuickCapture.csproj --configuration Release
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: QuickCapture-x64-single-executable
-          path: ./Source/QuickCapture/bin/x64/Release/netcoreapp3.0/win10-x64/publish
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: QuickCapture-x64-single-executable
+      #     path: ./Source/QuickCapture/bin/x64/Release/netcoreapp3.0/win10-x64/publish
 
   build-single-ready-to-run:
     runs-on: windows-latest
@@ -62,9 +62,8 @@ jobs:
 
       - name: Build with dotnet
         run: dotnet publish ./Source/QuickCapture/QuickCapture.csproj --configuration Release
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: QuickCapture-x64-single-executable-ready-to-run
-          path: ./Source/QuickCapture/bin/x64/Release/netcoreapp3.0/win10-x64/publish
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: QuickCapture-x64-single-executable-ready-to-run
+      #     path: ./Source/QuickCapture/bin/x64/Release/netcoreapp3.0/win10-x64/publish
