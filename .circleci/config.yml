@@ -1,0 +1,70 @@
+version: 2.1
+
+executors:
+  dotnet:
+    docker:
+      image: mcr.microsoft.com/dotnet/core/sdk:3.0
+
+commands:
+  restore_repository:
+    - restore_cache:
+        keys:
+          - v1-repository-{{ .Branch }}-{{ .Revision }}
+          - v1-repository-{{ .Branch }}-
+          - v1-repository-
+
+  store_repository:
+    - save_cache:
+        paths:
+          - .
+        key: v1-repository-{{ .Branch }}-{{ .Revision }}
+
+  restore_dependencies:
+    - restore_cache:
+        keys:
+          - v1-dependencies-{{ checksum "Source/QuickCapture/QuickCapture.csproj" }}
+          - v1-dependencies-
+
+  store_dependencies:
+    - save_cache:
+        paths:
+          - ~/.nuget/packages
+        key: v1-dependencies-{{ checksum "Source/QuickCapture/QuickCapture.csproj" }}
+
+jobs:
+  checkout_code:
+    executor: dotnet
+    steps:
+      - restore_repository
+      - checkout
+      - store_repository
+
+  restore_dependencies:
+    executor: dotnet
+    steps:
+      - restore_repository
+      - restore_dependencies
+      - dotnet restore ./Source/QuickCapture/QuickCapture.csproj
+      - store_dependencies
+
+  build_default:
+    executor: dotnet
+    steps:
+      - restore_repository
+      - restore_dependencies
+      - dotnet publish ./Source/QuickCapture/QuickCapture.csproj -r win10-x64 -c Release
+      - store_artifacts:
+          path: Source/QuickCapture/bin/x64/Release/netcoreapp3.0/win10-x64/publish
+          destination: QuickCapture-win10-x64-default
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - checkout_code
+      - restore_dependencies:
+          requires:
+            - checkout_code
+      - build_default:
+          requires:
+            - restore_dependencies
