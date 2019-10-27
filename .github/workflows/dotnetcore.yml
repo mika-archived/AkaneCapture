@@ -1,0 +1,47 @@
+name: .NET Core
+
+on: [push]
+
+jobs:
+  build-default:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1.3.0
+        with:
+          dotnet-version: 3.0.100
+
+      - name: Build with dotnet
+        run: dotnet publish ./Source/QuickCapture/QuickCapture.csproj --configuration Release
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: QuickCapture-x64-default
+          path: ./Source/QuickCapture/bin/x64/Release/netcoreapp3.0/win10-x64/publish
+
+  build-single-executable:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1.3.0
+        with:
+          dotnet-version: 3.0.100
+
+      - name: Patch [Single Executable]
+        run:
+
+      - name: Build with dotnet
+        run: dotnet publish ./Source/QuickCapture/QuickCapture-Single.csproj --configuration Release
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: QuickCapture-x64-default
+          path: ./Source/QuickCapture/bin/x64/Release/netcoreapp3.0/win10-x64/publish
