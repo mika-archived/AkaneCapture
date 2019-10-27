@@ -38,7 +38,7 @@ jobs:
         run: Get-Content ./patches/SingleExe.patch | patch -p1
 
       - name: Build with dotnet
-        run: dotnet publish ./Source/QuickCapture/QuickCapture-Single.csproj --configuration Release
+        run: dotnet publish ./Source/QuickCapture/QuickCapture.csproj --configuration Release
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
@@ -61,7 +61,7 @@ jobs:
         run: Get-Content patches/SingleExeReadyToRun.patch | patch -p1
 
       - name: Build with dotnet
-        run: dotnet publish ./Source/QuickCapture/QuickCapture-Single.csproj --configuration Release
+        run: dotnet publish ./Source/QuickCapture/QuickCapture.csproj --configuration Release
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
