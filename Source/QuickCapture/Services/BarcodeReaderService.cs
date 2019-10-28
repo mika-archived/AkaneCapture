@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 
 using QuickCapture.Services.Interfaces;
@@ -19,7 +21,9 @@ namespace QuickCapture.Services
 
         public List<string> Read(Bitmap bitmap)
         {
-            var decoded = _reader.DecodeMultiple(bitmap);
+            using var ms = new MemoryStream();
+            bitmap.Save(ms, ImageFormat.Png);
+            var decoded = _reader.DecodeMultiple(ms.GetBuffer());
             return decoded?.Select(w => w.Text).ToList() ?? new List<string>();
         }
     }
