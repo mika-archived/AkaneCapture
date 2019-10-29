@@ -10,7 +10,14 @@ namespace QuickCapture.Services
         public void OpenUrl(string url)
         {
             if (!string.IsNullOrWhiteSpace(url))
-                Process.Start(url);
+                try
+                {
+                    Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
             else
                 throw new InvalidOperationException();
         }
