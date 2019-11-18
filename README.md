@@ -20,7 +20,7 @@ It assumes 2D bar-code recognition in VR spaces/worlds like VRChat.
 
 ## Requirements
 
-- .NET Framework 4.7
+- .NET Core 3.x
 - Windows 10 1903 or greater
   - \* QuickCapture uses UWP Interop API that added in Windows 10 May 2019 Update.
 
