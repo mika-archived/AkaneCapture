@@ -1,4 +1,4 @@
-name: QuickCapture Release
+name: AkaneCapture Release
 
 on: [create]
 
@@ -15,13 +15,13 @@ jobs:
           dotnet-version: 3.0.100
 
       - name: Build with dotnet
-        run: dotnet publish ./Source/QuickCapture/QuickCapture.csproj --configuration Release
+        run: dotnet publish ./Source/AkaneCapture/AkaneCapture.csproj --configuration Release
 
       # - name: Upload artifacts
       #   uses: actions/upload-artifact@v1
       #   with:
-      #     name: QuickCapture-x64-default
-      #     path: ./Source/QuickCapture/bin/x64/Release/netcoreapp3.0/win10-x64/publish
+      #     name: AkaneCapture-x64-default
+      #     path: ./Source/AkaneCapture/bin/x64/Release/netcoreapp3.0/win10-x64/publish
 
   build-single-executable:
     runs-on: windows-latest
@@ -38,13 +38,13 @@ jobs:
         run: Get-Content ./patches/SingleExe.patch | patch -p1
 
       - name: Build with dotnet
-        run: dotnet publish ./Source/QuickCapture/QuickCapture.csproj --configuration Release
+        run: dotnet publish ./Source/AkaneCapture/AkaneCapture.csproj --configuration Release
 
       # - name: Upload artifacts
       #   uses: actions/upload-artifact@v1
       #   with:
-      #     name: QuickCapture-x64-single-executable
-      #     path: ./Source/QuickCapture/bin/x64/Release/netcoreapp3.0/win10-x64/publish
+      #     name: AkaneCapture-x64-single-executable
+      #     path: ./Source/AkaneCapture/bin/x64/Release/netcoreapp3.0/win10-x64/publish
 
   build-single-ready-to-run:
     runs-on: windows-latest
@@ -61,9 +61,9 @@ jobs:
         run: Get-Content patches/SingleExeReadyToRun.patch | patch -p1
 
       - name: Build with dotnet
-        run: dotnet publish ./Source/QuickCapture/QuickCapture.csproj --configuration Release
+        run: dotnet publish ./Source/AkaneCapture/AkaneCapture.csproj --configuration Release
       # - name: Upload artifacts
       #   uses: actions/upload-artifact@v1
       #   with:
-      #     name: QuickCapture-x64-single-executable-ready-to-run
-      #     path: ./Source/QuickCapture/bin/x64/Release/netcoreapp3.0/win10-x64/publish
+      #     name: AkaneCapture-x64-single-executable-ready-to-run
+      #     path: ./Source/AkaneCapture/bin/x64/Release/netcoreapp3.0/win10-x64/publish
