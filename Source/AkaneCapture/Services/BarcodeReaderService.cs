@@ -8,6 +8,8 @@ using AkaneCapture.Services.Interfaces;
 
 using ZXing;
 
+using BarcodeReader = ZXing.Windows.Compatibility.BarcodeReader;
+
 namespace AkaneCapture.Services
 {
     internal class BarcodeReaderService : IBarcodeReaderService
@@ -23,7 +25,7 @@ namespace AkaneCapture.Services
         {
             using var ms = new MemoryStream();
             bitmap.Save(ms, ImageFormat.Png);
-            var decoded = _reader.DecodeMultiple(ms.GetBuffer());
+            var decoded = _reader.DecodeMultiple(bitmap);
             return decoded?.Select(w => w.Text).ToList() ?? new List<string>();
         }
     }
