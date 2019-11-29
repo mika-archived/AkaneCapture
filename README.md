@@ -48,5 +48,6 @@ This application has been tested in the following environments:
 
 - VRChat (Steam) + Desktop PC (Desktop Mode)
 - VRChat (Steam) + Oculus Rift S (SteamVR Mode)
+- VRChat (Steam) + Valve Index (SteamVR Mode)
 - VRChat (Oculus) + Desktop PC (Desktop Mode)
 - VRChat (Oculus) + Oculus Rift S (VR Mode)
