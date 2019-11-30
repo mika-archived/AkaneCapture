@@ -41,6 +41,9 @@ namespace AkaneCapture.Views
 
         protected override void OnClosing(CancelEventArgs e)
         {
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
+
             base.OnClosing(e);
 
             if (e.Cancel)

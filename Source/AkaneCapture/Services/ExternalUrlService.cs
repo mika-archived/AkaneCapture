@@ -7,19 +7,19 @@ namespace AkaneCapture.Services
 {
     public class ExternalUrlService : IExternalUrlService
     {
-        public void OpenUrl(string url)
+        public void OpenUrl(Uri url)
         {
-            if (!string.IsNullOrWhiteSpace(url))
-                try
-                {
-                    Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e.Message);
-                }
-            else
-                throw new InvalidOperationException();
+            if (url == null)
+                throw new ArgumentNullException(nameof(url));
+
+            try
+            {
+                Process.Start(new ProcessStartInfo(url.ToString()) { UseShellExecute = true });
+            }
+            catch (InvalidOperationException e)
+            {
+                Debug.WriteLine(e.Message);
+            }
         }
     }
 }

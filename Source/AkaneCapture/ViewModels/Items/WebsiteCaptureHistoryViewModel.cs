@@ -23,7 +23,12 @@ namespace AkaneCapture.ViewModels.Items
             FillCommand = new ReactiveCommand();
             FillCommand.Subscribe(async _ => await website.FillAsync()).AddTo(this);
             OpenHyperlinkCommand = new ReactiveCommand();
-            OpenHyperlinkCommand.Subscribe(() => urlService.OpenUrl(Text)).AddTo(this);
+            OpenHyperlinkCommand.Subscribe(() =>
+            {
+                Uri.TryCreate(Text, UriKind.Absolute, out var uri);
+                if (uri != null)
+                    urlService.OpenUrl(uri);
+            }).AddTo(this);
         }
     }
 }
